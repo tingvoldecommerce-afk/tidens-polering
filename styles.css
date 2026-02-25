@@ -26,6 +26,7 @@
 
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 
 html { scroll-behavior: smooth; font-size: 16px; }
 
@@ -222,7 +223,7 @@ p  { color: var(--gray-500); }
   align-items: center;
   gap: 10px;
 }
-.logo-img { height: 38px; width: auto; object-fit: contain; }
+.logo-img { height: 52px; width: auto; object-fit: contain; }
 .logo-text-fallback {
   display: none;
   font-size: 1.15rem;
@@ -687,6 +688,11 @@ p  { color: var(--gray-500); }
 /* ─────────────────────────────────────────
    SERVICES
    ───────────────────────────────────────── */
+#ydelser {
+  background:
+    linear-gradient(rgba(234,246,253,.90), rgba(234,246,253,.90)),
+    url('images/worker-ladder.webp') center/cover no-repeat;
+}
 .services-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
