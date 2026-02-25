@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:tidens-polering.dk)",
+      "WebFetch(domain:dk.trustpilot.com)",
+      "WebFetch(domain:www.anmeld-haandvaerker.dk)"
+    ]
+  }
+}
