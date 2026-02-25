@@ -232,16 +232,10 @@ p  { color: var(--gray-500); }
    HERO
    ───────────────────────────────────────── */
 
-/*
-  EJER-FOTO: Gem billedet fra tidens-polering.dk som "hero-bg.jpg" i samme mappe.
-  Fjern kommentaren nedenfor for at aktivere foto-baggrunden.
-*/
 .hero {
   position: relative;
-  /* Gradient: navy → brand lyseblå – matcher bilernes farve */
   background:
-    /* url('hero-bg.jpg') center/cover no-repeat, */
-    linear-gradient(130deg, #182A53 0%, #1a4e82 45%, #a1daf8 100%);
+    url('images/hero-worker.webp') center/cover no-repeat;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -258,14 +252,12 @@ p  { color: var(--gray-500); }
   pointer-events: none;
 }
 
-/* Brand-blå dekorative blobs */
+/* Mørkt overlay over hero-foto så tekst og formular er læsbar */
 .hero::before {
   content: '';
   position: absolute;
-  top: -200px; right: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(161,218,248,.18) 0%, transparent 65%);
-  border-radius: 50%;
+  inset: 0;
+  background: linear-gradient(130deg, rgba(24,42,83,.82) 0%, rgba(26,78,130,.65) 55%, rgba(24,42,83,.55) 100%);
   pointer-events: none;
 }
 .hero::after {
@@ -713,6 +705,13 @@ p  { color: var(--gray-500); }
   align-items: center;
   justify-content: center;
 }
+.about-photo {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+}
 .av-window {
   width: 260px; height: 280px;
   background: var(--gray-100);
@@ -874,6 +873,39 @@ blockquote { font-size: .95rem; line-height: 1.7; color: var(--gray-700); font-s
 .acc-body a { color: var(--blue); text-decoration: underline; }
 
 /* ─────────────────────────────────────────
+   SERVICEOMRÅDER – BYSKILTE
+   ───────────────────────────────────────── */
+.areas-signs {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+.area-sign-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.area-sign-item img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.area-sign-item img:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.area-sign-item span {
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* ─────────────────────────────────────────
    CTA SECTION
    ───────────────────────────────────────── */
 .cta-section {
@@ -1024,6 +1056,7 @@ blockquote { font-size: .95rem; line-height: 1.7; color: var(--gray-700); font-s
   .footer-grid      { grid-template-columns: 1fr 1fr; }
   .cta-inner        { flex-direction: column; text-align: center; }
   .cta-contacts     { justify-content: center; }
+  .areas-signs      { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -1061,7 +1094,9 @@ blockquote { font-size: .95rem; line-height: 1.7; color: var(--gray-700); font-s
   .footer-bottom-inner { flex-direction: column; gap: 12px; text-align: center; }
 
   .about-visual   { height: 280px; }
+  .about-photo    { height: 280px; }
   .av-window      { width: 200px; height: 220px; }
+  .areas-signs    { grid-template-columns: repeat(2, 1fr); }
 
   /* Hero CTA button full-width on mobile */
   .btn-hero-cta   { width: 100%; justify-content: center; }

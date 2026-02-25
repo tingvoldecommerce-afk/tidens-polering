@@ -60,12 +60,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ── FORM: submit handler ──
+// ── FORM: Formspree AJAX handler ──
 const form        = document.getElementById('offerForm');
 const formSuccess = document.getElementById('formSuccess');
 
 if (form) {
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     // Simple validation
@@ -80,9 +80,27 @@ if (form) {
     });
     if (!valid) return;
 
-    // Show success
-    form.hidden = true;
-    formSuccess.hidden = false;
+    const submitBtn = form.querySelector('[type="submit"]');
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+
+      if (response.ok) {
+        form.hidden = true;
+        formSuccess.hidden = false;
+      } else {
+        submitBtn.disabled = false;
+        alert('Der opstod en fejl. Prøv igen eller ring på 26 24 09 33.');
+      }
+    } catch {
+      submitBtn.disabled = false;
+      alert('Der opstod en fejl. Prøv igen eller ring på 26 24 09 33.');
+    }
   });
 }
 
