@@ -121,6 +121,25 @@ document.querySelectorAll(
   observer.observe(el);
 });
 
+// ── REVIEWS SLIDER ──
+const track = document.getElementById('reviewsTrack');
+const dots  = document.querySelectorAll('.dot');
+if (track) {
+  let cur = 0;
+  const cards = track.querySelectorAll('.review-card');
+  const total = cards.length;
+
+  function goTo(n) {
+    cur = (n + total) % total;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+  }
+
+  document.querySelector('.slider-prev').addEventListener('click', () => goTo(cur - 1));
+  document.querySelector('.slider-next').addEventListener('click', () => goTo(cur + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+}
+
 // Add fade-in styles dynamically
 const style = document.createElement('style');
 style.textContent = `

@@ -161,11 +161,48 @@ p  { color: var(--gray-500); }
 .section-header p  { font-size: 1.05rem; }
 
 /* ─────────────────────────────────────────
+   TOPBAR
+   ───────────────────────────────────────── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 101;
+  background: var(--navy);
+  padding: 7px 0;
+}
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+.topbar-link {
+  color: rgba(255,255,255,.75);
+  font-size: .8rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .2s;
+}
+.topbar-link:hover { color: #fff; }
+.topbar-hours {
+  color: rgba(255,255,255,.45);
+  font-size: .78rem;
+}
+@media (max-width: 600px) {
+  .topbar-inner { justify-content: center; gap: 16px; }
+  .topbar-hours  { display: none; }
+}
+
+/* ─────────────────────────────────────────
    NAVBAR
    ───────────────────────────────────────── */
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 36px; left: 0; right: 0;
   z-index: 100;
   background: var(--white);
   border-bottom: 3px solid var(--brand); /* Lyseblå brand-stripe i bunden af nav */
@@ -210,6 +247,39 @@ p  { color: var(--gray-500); }
 .nav-link:hover { color: var(--blue); background: var(--brand-bg); }
 .nav-cta { margin-left: 10px; }
 
+/* Dropdown */
+.nav-item-dropdown { position: relative; }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+  min-width: 210px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.1);
+  z-index: 200;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-item-dropdown:hover .nav-dropdown-menu { display: flex; }
+.nav-dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  border-radius: 8px;
+  transition: color var(--transition), background var(--transition);
+}
+.nav-dropdown-link:hover { color: var(--blue); background: var(--brand-bg); }
+.dropdown-chevron { transition: transform .2s; flex-shrink: 0; }
+.nav-item-dropdown:hover .dropdown-chevron { transform: rotate(180deg); }
+
 /* Hamburger */
 .hamburger {
   display: none;
@@ -239,7 +309,7 @@ p  { color: var(--gray-500); }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 120px 0 80px;
+  padding: 156px 0 80px;
   overflow: hidden;
 }
 
@@ -376,6 +446,7 @@ p  { color: var(--gray-500); }
 .field input,
 .field select,
 .field textarea {
+  width: 100%;
   padding: 10px 14px;
   border: 1.5px solid var(--border);
   border-radius: 8px;
@@ -419,7 +490,7 @@ p  { color: var(--gray-500); }
    ───────────────────────────────────────── */
 .tp-section {
   background: var(--brand-bg);
-  padding: 56px 0;
+  padding: 28px 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -429,7 +500,7 @@ p  { color: var(--gray-500); }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 36px;
+  margin-bottom: 0;
   flex-wrap: wrap;
 }
 .tp-brand {
@@ -633,10 +704,8 @@ p  { color: var(--gray-500); }
   position: relative;
 }
 .service-card:hover {
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 32px rgba(24,139,246,.18);
   transform: translateY(-3px);
-}
-.service-featured {
   border-color: var(--blue);
   background: var(--brand-bg);
 }
@@ -649,7 +718,6 @@ p  { color: var(--gray-500); }
   justify-content: center;
   color: var(--blue);
 }
-.service-featured .service-icon { background: rgba(24,139,246,.12); }
 .service-card h3 { font-size: 1.05rem; margin: 0; }
 .service-card p  { font-size: .88rem; line-height: 1.65; flex: 1; }
 .service-list { display: flex; flex-direction: column; gap: 6px; }
@@ -756,12 +824,47 @@ p  { color: var(--gray-500); }
 /* ─────────────────────────────────────────
    ANBEFALINGER
    ───────────────────────────────────────── */
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 52px;
+.reviews-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
 }
+.slider-track-wrap {
+  flex: 1;
+  overflow: hidden;
+}
+.slider-track {
+  display: flex;
+  transition: transform .4s ease;
+}
+.slider-track .review-card {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+.slider-btn {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  color: var(--navy);
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.slider-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.slider-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 52px; }
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none; cursor: pointer; padding: 0;
+  transition: background .2s;
+}
+.dot.active { background: var(--blue); }
 .review-card {
   background: var(--white);
   border: 1px solid var(--border);
@@ -1070,7 +1173,7 @@ blockquote { font-size: .95rem; line-height: 1.7; color: var(--gray-700); font-s
   .nav-links {
     display: none;
     position: fixed;
-    top: 68px; left: 0; right: 0;
+    top: 104px; left: 0; right: 0;
     background: var(--white);
     flex-direction: column;
     padding: 16px 24px 24px;
@@ -1081,6 +1184,18 @@ blockquote { font-size: .95rem; line-height: 1.7; color: var(--gray-700); font-s
   .nav-links.open { display: flex; }
   .nav-link { width: 100%; padding: 12px 16px; }
   .nav-cta  { margin: 8px 0 0; width: 100%; justify-content: center; }
+  /* Dropdown på mobil: vises altid inline under Ydelser */
+  .nav-dropdown-menu {
+    display: flex;
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: var(--gray-50);
+    border-radius: 8px;
+    padding: 4px 0 4px 12px;
+    margin: 0 0 4px;
+  }
+  .nav-link-dropdown { pointer-events: none; }
 
   /* Grids */
   .services-grid  { grid-template-columns: 1fr; }
